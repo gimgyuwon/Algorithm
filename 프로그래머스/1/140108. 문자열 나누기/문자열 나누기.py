@@ -1,22 +1,21 @@
 def solution(s):
+    x = s[0]
+    same_cnt, diff_cnt = 0, 0
     answer = 0
-    i = 0
-    while i < len(s):
-        equal_cnt = 1
-        not_equal_cnt = 0
-        x = s[i]
-        j = 0
-        for j in range (i+1, len(s)):
-            if s[j] == x:
-                equal_cnt += 1
-            else:
-                not_equal_cnt += 1        
-            if (equal_cnt == not_equal_cnt):
-                answer+=1
-                i = j + 1
-                break
+    for i in range(len(s)):
+        if s[i] == x:
+            same_cnt += 1
         else:
-            answer +=1
-            break
+            diff_cnt += 1
+            
+        if same_cnt == diff_cnt:
+            answer += 1
+            if i+1 < len(s):
+                x = s[i+1]
+            same_cnt, diff_cnt = 0, 0
+    
+    if same_cnt > 0 or diff_cnt > 0:
+        answer += 1
+            
     return answer
             
