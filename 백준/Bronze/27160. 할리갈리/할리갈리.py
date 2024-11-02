@@ -1,17 +1,17 @@
-def haligarli(n):
-    card_dic = {
-        'STRAWBERRY': 0,
-        'BANANA': 0,
-        'LIME': 0,
-        'PLUM': 0
-    }
-    for _ in range(0, n):
-        card = input().split(" ")
-        card_dic[card[0]] += int(card[1])
+import sys
+from collections import defaultdict
+
+
+def haligarli(n, cards):
+    card_dic = defaultdict(int)
+    for card in cards:
+        fruit, count = card.split()
+        card_dic[fruit] += int(count)
     if 5 in card_dic.values():
         return "YES"
     return "NO"
 
 
-n = int(input())
-print(haligarli(n))
+n = int(sys.stdin.readline())
+cards = [sys.stdin.readline().strip() for _ in range(n)]
+print(haligarli(n, cards))
