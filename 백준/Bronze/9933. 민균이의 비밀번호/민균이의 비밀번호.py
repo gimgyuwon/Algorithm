@@ -1,15 +1,14 @@
 import sys
 import math
 
+def solution(pw_lst):
+    for pw in pw_lst:
+        if pw[::-1] in pw_lst:
+            len_pw= len(pw)
+            middle_pw = pw[(math.floor(len(pw))//2)]
+            print(len_pw, middle_pw)
+            break
 
-def password(pw_list):
-    for word in pw_list:
-        if word[::-1] in pw_list:
-            ans_len = len(word)
-            ans_middle = word[math.floor(len(word)//2)]
-    print(ans_len, ans_middle)
-
-
-n = int(sys.stdin.readline())
-pw_list = [sys.stdin.readline().strip() for _ in range(n)]
-password(pw_list)
+pw_len = int(sys.stdin.readline())
+pw_lst = [sys.stdin.readline().strip() for _ in range(pw_len)]
+solution(pw_lst)
