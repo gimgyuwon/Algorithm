@@ -1,28 +1,28 @@
 import sys
 from collections import defaultdict
 
+def is_fair(person_schedule):
+    max_time = max(person_schedule.values())
+    min_time = min(person_schedule.values())
+    return max_time - min_time <= 12
 
-def is_work_fair(N, week):
-    time_per_person = defaultdict(int)
-    hours = [4, 6, 4, 10]
+def solution(schedule):
+    person_schedule = defaultdict(int)
+    work_hour = [4, 6, 4, 10]
+    for week_idx, person in enumerate(schedule):
+        for part in person:
+            if part == "-":
+                continue
+            person_schedule[part] += work_hour[week_idx % 4]
 
-    for i in range(4 * N):
-        hour_group = i % 4
-        for person in week[i]:
-            if person != "-" and person:
-                time_per_person[person] += hours[hour_group]
-
-    if len(time_per_person) == 0:
+    if not person_schedule:
         return "Yes"
-
-    time_values = list(time_per_person.values())
-
-    if max(time_values) - min(time_values) <= 12:
+    if is_fair(person_schedule):
         return "Yes"
+    else:
+        return "No"
 
-    return "No"
+week = int(sys.stdin.readline().strip())
+schedule = [sys.stdin.readline().strip().split() for _ in range(4*week)]
 
-
-N = int(sys.stdin.readline().strip())
-week = [line.strip().split() for line in [sys.stdin.readline().strip() for _ in range(4 * N)]]
-print(is_work_fair(N, week))
+print(solution(schedule))
