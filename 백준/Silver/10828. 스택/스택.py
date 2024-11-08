@@ -17,33 +17,25 @@ class Stack:
     def pop(self):
         if not self.top:
             return -1
-        else:
-            node = self.top
-            self.top = node.next
-            return node.val
+        node = self.top
+        self.top = node.next
+        return node.val
 
     def size(self):
-        if not self.top:
-            return 0
-        else:
-            node = self.top
-            size = 0
-            while node:
-                size += 1
-                node = node.next
-            return size
+        node = self.top
+        size = 0
+        while node:
+            size += 1
+            node = node.next
+        return size
 
     def empty(self):
-        if not self.top:
-            return 1
-        else:
-            return 0
+        return 1 if not self.top else 0
 
     def peek(self):
         if not self.top:
             return -1
-        else:
-            return self.top.val
+        return self.top.val
 
 
 cmd_num = int(sys.stdin.readline().strip())
