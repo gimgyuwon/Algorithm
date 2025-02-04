@@ -6,33 +6,34 @@ input = sys.stdin.read
 data = input().splitlines()
 
 n = int(data[0])
+# 부모는 항상 자식보다 숫자가 작다
 parent, child = map(int, sorted(data[1].split()))
 m = int(data[2])
-lst = [list(map(int, line.split())) for line in data[3:]]
 
-# 무방향 그래프
-graph = [[] for _ in range(n+1)]
+lst = [list(map(int, part.split())) for part in data[3:]]
+
+graph = defaultdict(list)
+
 for x, y in lst:
     graph[x].append(y)
     graph[y].append(x)
 
-# 부모는 항상 자식 보다 번호가 작음
-def bfs(graph, start, goal, n):
-    visited = [False] * (n + 1)
-    queue = deque([(start, 0)])
-    visited[start] = True
+def dfs(graph, node, goal, n):
+    visited = [False] * (n+1)
+    stack = [(node, 0)]
 
-    while queue:
-        node, cnt = queue.popleft()
+    while stack:
+        node, cnt = stack.pop()
 
         if node == goal:
             return cnt
-
-        for neighbor in graph[node]:
-            if not visited[neighbor]:
-                visited[neighbor] = True
-                queue.append((neighbor, cnt + 1))
+        
+        if not visited[node]:
+            visited[node] = True
+            for child in reversed(graph[node]):
+                if not visited[child]:
+                    stack.append((child, cnt+1))
     return -1
 
 
-print(bfs(graph, parent, child, n))
+print(dfs(graph, parent, child, n))
