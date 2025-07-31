@@ -1,20 +1,17 @@
 import sys
 import heapq
 
-
-def minOperation(data):
-    min_heap = []
-
-    for part in data:
-        if part == 0:
-            if min_heap:
-                print(heapq.heappop(min_heap))
-            else:
-                print(0)
+def min_heap(cmd_lst):
+    heap = []
+    for x in cmd_lst:
+        if x == 0:
+            print(heapq.heappop(heap) if heap else 0)
         else:
-            heapq.heappush(min_heap, part)
+            heapq.heappush(heap, x)
 
-n = int(sys.stdin.readline().strip())
-data = [int(sys.stdin.readline().strip()) for _ in range(n)]
 
-minOperation(data)
+
+cmd_num = int(sys.stdin.readline().strip())
+cmd_lst = map(int, sys.stdin.read().splitlines())
+
+min_heap(cmd_lst)
