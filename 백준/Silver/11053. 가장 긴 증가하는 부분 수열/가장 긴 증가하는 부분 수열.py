@@ -1,16 +1,19 @@
 import sys
+import bisect
 
 input = sys.stdin.readline
 
-def longest_increasing_subsequence(n, seq):
-    dp = [1]*n
-    for i in range(1, n):
-        for j in range(0, i):
-            if seq[j] < seq[i]:
-                dp[i] = max(dp[j]+1, dp[i])
-    return dp
+def longest_increasing_subsequence(seq):
+    lis = []
+    for num in seq:
+        pos = bisect.bisect_left(lis, num)
+        if pos == len(lis):
+            lis.append(num)
+        else:
+            lis[pos] = num
+    return len(lis)
 
 n = int(input())
 seq = list(map(int, input().strip().split()))
 
-print(max(longest_increasing_subsequence(n, seq)))
+print(longest_increasing_subsequence(seq))
