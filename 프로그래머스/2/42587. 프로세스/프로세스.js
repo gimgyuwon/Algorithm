@@ -1,26 +1,18 @@
 function solution(priorities, location) {
-    let priorIdxList = []
-    let rank = 1
+    const q = priorities.map((p, i)=>({priority: p, idx: i}))
+    let seq = 0
     
-    for (i=0; i<priorities.length; i++){
-        priorIdxList.push([priorities[i], i])
-    }
-    
-    while (priorIdxList.length > 0){
-        const now = priorIdxList.shift()
-        const maxInRest = Math.max(...priorIdxList.map((p) => p[0]))
+    while (q.length>0){
+        const maxPriority = Math.max(...q.map(item=>item.priority))
+        const current = q.shift()
         
-        if (now[0] < maxInRest){
-            priorIdxList.push(now)
+        if (current.priority < maxPriority){
+            q.push(current)
         } else {
-            if (now[1] === location){
-                return rank;
-            } else {
-                rank++;
+            seq++
+            if (current.idx == location){
+                return seq
             }
         }
-        
-        // console.log('now', now, 'priorIdxList', priorIdxList, 'maxInRest', maxInRest, 'rank', rank)
     }
-    return 0
 }
