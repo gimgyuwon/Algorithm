@@ -1,19 +1,16 @@
 function solution(prices) {
-    const len = prices.length
-    const ans_lst = []
+    let time = 0
+    const ans = []
     
-    for (let i=0; i<len; i++){
+    for (let i = 0; i < prices.length; i++){
         let time = 0
-        const now = prices[i]
-        
-        for (let j=i+1; j<len; j++){
-            const next = prices[j]
-            time++;
-            if (now > next){
-                break;
+        for (let j = i+1; j< prices.length; j++){
+            time++
+            if (prices[i] > prices[j]){
+                break
             }
         }
-        ans_lst.push(time);
+        ans.push(time)
     }
-    return ans_lst;
+    return ans
 }
