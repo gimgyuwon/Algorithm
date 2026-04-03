@@ -1,16 +1,12 @@
 function solution(phone_book) {
-    let bookMap = new Map();
-    for (const phone of phone_book){
-        bookMap.set(phone, (bookMap.get(phone) || 0) +1)
-    }
+    sortedPB = phone_book.map(String).sort()
     
-    for (const phone of phone_book){
-        for (i=0; i<phone.length; i++){
-            if (bookMap.has(phone.substring(0,i))){
-                return false
-            }
+    for (let i = 0; i < phone_book.length -1; i++){
+        const a = sortedPB[i]
+        const b = sortedPB[i+1]
+        if (a == b.slice(0,a.length)){
+            return false
         }
     }
-    
     return true
 }
